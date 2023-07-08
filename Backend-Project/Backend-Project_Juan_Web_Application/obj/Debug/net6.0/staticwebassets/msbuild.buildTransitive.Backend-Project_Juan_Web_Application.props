@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Backend-Project_Juan_Web_Application.props" />
+</Project>
