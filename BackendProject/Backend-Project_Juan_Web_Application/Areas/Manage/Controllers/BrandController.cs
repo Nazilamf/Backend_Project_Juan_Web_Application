@@ -4,6 +4,7 @@ using Backend_Project_Juan_Web_Application.Entities;
 using Humanizer.Localisation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 
 namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 {
@@ -24,7 +25,10 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 
             if (search!=null) query = query.Where(x => x.Name.Contains(search));
 
-            return View(PaginatedList<Brand>.Create(query, page, 2));
+            var vm = PaginatedList<Brand>.Create(query, page, 2);
+            if(page>vm.TotalPages) return RedirectToAction("index", new {page=vm.TotalPages,search=search});
+
+            return View(vm);
         }
 
 

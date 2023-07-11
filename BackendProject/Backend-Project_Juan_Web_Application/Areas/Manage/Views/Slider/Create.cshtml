@@ -40,12 +40,17 @@
                     <textarea asp-for="Desc" class="form-control"></textarea>
                     <span class="text-danger" asp-validation-for="Desc"></span>
                 </div>
+                 <div class="form-group">
+                    <label asp-for="ButtonBackgroundColor">ButtonBackgroundColor</label>
+                    <textarea asp-for="ButtonBackgroundColor" class="form-control"></textarea>
+                    <span class="text-danger" asp-validation-for="ButtonBackgroundColor"></span>
+                </div>
                 <div class="form-group">
                     <label asp-for="ImageFile">ImageFile</label>
                     <input asp-for="ImageFile" class="form-control">
                     <span class="text-danger" asp-validation-for="ImageFile"></span>
                 </div>
-
+                <div asp-validation-summary="ModelOnly"></div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

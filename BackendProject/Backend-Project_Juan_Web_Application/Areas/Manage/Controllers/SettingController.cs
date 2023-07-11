@@ -3,31 +3,29 @@ using Backend_Project_Juan_Web_Application.DAL;
 using Backend_Project_Juan_Web_Application.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Linq;
 
 namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 {
     [Area("manage")]
-    public class SizeController : Controller
+    public class SettingController : Controller
     {
         private readonly JuanDbContext _context;
 
-        public SizeController(JuanDbContext context)
+        public SettingController(JuanDbContext context)
         {
             _context = context;
         }
         public IActionResult Index(int page = 1, string search = null)
         {
             ViewBag.Search = search;
-
-            var query = _context.Sizes.Include(x=>x.ProductSizes).ThenInclude(x=>x.Product).AsQueryable();
-
-            if (search!=null) query = query.Where(x => x.SizeName.Contains(search));    
-           
-
-            return View(PaginatedList<Size>.Create(query, page, 2));
+          
+            
+                var query = _context.Settings.AsQueryable();
+            if (search!=null) query = query.Where(x=>x.Value.Contains(search));  
+            return View(PaginatedList<Setting>.Create(query, page, 2));
         }
-
 
         public IActionResult Create()
         {
@@ -35,57 +33,54 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Size size)
+        public IActionResult Create(Setting setting)
         {
             if (!ModelState.IsValid)
                 return View();
 
-            if (_context.Sizes.Any(x => x.SizeName == size.SizeName))
+            if (_context.Settings.Any(x => x.Value == setting.Value))
             {
-                ModelState.AddModelError("name", "name is already taken");
+                ModelState.AddModelError("Value", "Value is already taken");
                 return View();
             }
 
-            _context.Sizes.Add(size);
+            _context.Settings.Add(setting);
 
             _context.SaveChanges();
 
             return RedirectToAction("index");
         }
-
-        public IActionResult Edit(int id)
+        public IActionResult Edit( string key)
         {
-            Size size = _context.Sizes.FirstOrDefault(x => x.Id == id);
+            Setting setting = _context.Settings.FirstOrDefault(x => x.Key == key);
 
-            if (size == null) return View("error");
+            if (setting == null) return View("error");
 
 
-            return View(size);
+            return View(setting);
         }
 
         [HttpPost]
-        public IActionResult Edit(Size size)
+        public IActionResult Edit(Setting setting)
         {
             if (!ModelState.IsValid)
                 return View();
 
-            Size existsize = _context.Sizes.FirstOrDefault(x => x.Id == size.Id);
+            Setting existSetting = _context.Settings.FirstOrDefault(x => x.Key == setting.Key);
 
-            if (existsize == null) return View("error");
+            if (existSetting == null) return View("error");
 
-            if (size.SizeName!=existsize.SizeName &&  _context.Sizes.Any(x => x.SizeName==size.SizeName))
+            if (setting.Value!=existSetting.Value &&  _context.Settings.Any(x => x.Value==setting.Value))
             {
                 ModelState.AddModelError("Name", "Name is already taken");
                 return View();
             }
 
 
-            existsize.SizeName = size.SizeName;
+            existSetting.Value = setting.Value;
             _context.SaveChanges();
 
             return RedirectToAction("index");
         }
-
-
     }
 }

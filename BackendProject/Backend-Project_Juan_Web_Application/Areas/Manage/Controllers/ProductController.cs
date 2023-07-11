@@ -66,7 +66,7 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
             ProductImage poster = new ProductImage
             {
                 PosterStatus = true,
-                ImageName = FileManager.Save(product.PosterFile, _env.WebRootPath, "manage/assets/uploads/products"),
+                ImageName = FileManager.Save(product.PosterFile, _env.WebRootPath, "manage/assets/uploads/product"),
             };
             product.ProductImages.Add(poster);
 
@@ -78,7 +78,7 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
                 ProductImage productImage = new ProductImage
                 {
                     PosterStatus = false,
-                    ImageName = FileManager.Save(file, _env.WebRootPath, "manage/assets/uploads/products"),
+                    ImageName = FileManager.Save(file, _env.WebRootPath, "manage/assets/uploads/product"),
                 };
                 product.ProductImages.Add(productImage);
             }
@@ -187,7 +187,7 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
             }
 
             _context.SaveChanges();
-            FileManager.DeleteAll(_env.WebRootPath, "manage/uploads/books", removableImageNames);
+            FileManager.DeleteAll(_env.WebRootPath, "manage/assets/uploads/product", removableImageNames);
 
 
             return RedirectToAction("index");

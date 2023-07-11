@@ -10,9 +10,9 @@ namespace Backend_Project_Juan_Web_Application.Entities
         public int Order { get; set; }
 
         [MaxLength(50)]
-        public string Title1 { get; set; }
+        public string? Title1 { get; set; }
         [MaxLength(50)]
-        public string Title2 { get; set; }
+        public string? Title2 { get; set; }
         [MaxLength(150)]
         public string Desc { get; set; }
         [MaxLength(150)]
@@ -21,12 +21,13 @@ namespace Backend_Project_Juan_Web_Application.Entities
         public string ButtonUrl { get; set; }
         [MaxLength(30)]
         public string ButtonBackgroundColor { get; set; }
-        [Required] 
         [MaxLength(150)]
+        [AllowedTypes("image/png", "image/jpeg")]
         public string ImageName { get; set; }
 
         [NotMapped]
-        [MaxFileLength(2097152)]
+        //[MaxFileLength(2097152)]
+
         public IFormFile ImageFile { get; set; }
 
     }

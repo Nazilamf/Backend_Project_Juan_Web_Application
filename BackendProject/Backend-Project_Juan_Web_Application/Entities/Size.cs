@@ -7,7 +7,7 @@ namespace Backend_Project_Juan_Web_Application.Entities
        public int Id { get; set; }
        [Required]
        [MaxLength(50)]
-       public int SizeName { get; set; }
+       public string SizeName { get; set; }
        public ICollection <ProductSize > ProductSizes { get; set; } = new List <ProductSize> ();
     }
 }

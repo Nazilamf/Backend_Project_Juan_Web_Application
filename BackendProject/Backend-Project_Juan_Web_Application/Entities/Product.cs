@@ -18,7 +18,7 @@ namespace Backend_Project_Juan_Web_Application.Entities
         [Column(TypeName = "decimal(18,2)")]
         public decimal CostPrice { get; set; }
 
-        public bool Gender { get; set; }  
+        public bool? Gender { get; set; } = null!;
         public bool StockStatus { get; set; }
       
         public bool IsNew { get; set; }

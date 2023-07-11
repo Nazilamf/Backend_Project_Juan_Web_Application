@@ -49,7 +49,11 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label asp-for="Gender">Gender</label>
-                        <input asp-for="Gender" class="form-control">
+                       <Select asp-for="Gender" class="form-control">
+                        <option value="@(true)">Women</option>
+                            <option value="@(false)">Men</option>
+                            <option value="@(null)">Unisex</option>
+                            </Select>
                         <span class="text-danger" asp-validation-for="Gender"></span>
                     </div>
                     <div class="form-group col-md-4">
@@ -66,7 +70,7 @@
                     <div class="form-group col-md-6">
                         <label asp-for="PosterFile">PosterFile</label>
                         <input asp-for="PosterFile" class="form-control">
-                        <img width="250" src="~/manage/uploads/books/@Model.ProductImages.FirstOrDefault(x=>x.PosterStatus==true)?.ImageName" />
+                        <img width="250" src="~/manage/assets/uploads/product/@Model.ProductImages.FirstOrDefault(x=>x.PosterStatus==true)?.ImageName" />
                         <span class="text-danger" asp-validation-for="PosterFile"></span>
                     </div>
                    
