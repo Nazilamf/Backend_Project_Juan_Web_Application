@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Backend_Project_Juan_Web_Application.Attributes;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend_Project_Juan_Web_Application.Entities
 {
@@ -22,6 +24,10 @@ namespace Backend_Project_Juan_Web_Application.Entities
         [Required] 
         [MaxLength(150)]
         public string ImageName { get; set; }
-        
+
+        [NotMapped]
+        [MaxFileLength(2097152)]
+        public IFormFile ImageFile { get; set; }
+
     }
 }

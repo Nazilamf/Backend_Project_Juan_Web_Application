@@ -13,5 +13,10 @@ namespace Backend_Project_Juan_Web_Application.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
+
+        public Dictionary<string, string> GetSettings()
+        {
+            return _context.Settings.ToDictionary(x => x.Key, x => x.Value);
+        }
     }
 }

@@ -20,6 +20,9 @@ namespace Backend_Project_Juan_Web_Application.DAL
 
         public DbSet <Feature> Features { get; set; }   
 
+        public DbSet <Setting> Settings { get; set; }  
+        public DbSet <ProductImage> ProductImages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductSize>().HasKey(x => new { x.ProductId, x.SizeId });

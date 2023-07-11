@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Backend_Project_Juan_Web_Application.Attributes;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend_Project_Juan_Web_Application.Entities
 {
@@ -13,6 +15,12 @@ namespace Backend_Project_Juan_Web_Application.Entities
         [Required]
         [MaxLength(50)]
         public string Icon { get; set; }
+        [MaxLength(50)]
+        public string Color { get; set; }
 
+
+        [NotMapped]
+        [MaxFileLength(2097152)]
+        public IFormFile ImageFile { get; set; }
     }
 }

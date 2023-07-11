@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Backend_Project_Juan_Web_Application.Attributes;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,9 +20,11 @@ namespace Backend_Project_Juan_Web_Application.Entities
 
         public bool Gender { get; set; }  
         public bool StockStatus { get; set; }
-        public bool IsFeatured { get; set; }
+      
         public bool IsNew { get; set; }
         public bool IsDeleted { get; set; }
+
+        public byte Rate { get; set; }
 
 
 
@@ -32,10 +35,25 @@ namespace Backend_Project_Juan_Web_Application.Entities
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
         public List<ProductSize> ProductSizes { get; set; }= new List<ProductSize>();
+        [NotMapped]
+        [MaxFileLength(2097152)]
+        [AllowedTypes("image/png", "image/jpeg")]
+        public IFormFile PosterFile { get; set; }
+        [NotMapped]
+        [MaxFileLength(2097152)]
+        [AllowedTypes("image/png", "image/jpeg")]
+        public List<IFormFile> ImageFiles { get; set; } = new List<IFormFile>();
+        [NotMapped]
+        public List<int> SizeIds { get; set; } = new List<int>();
+        [NotMapped]
+        public List<int> ProductImageIds { get; set; } = new List<int>();
+        public List<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
 
 
 
-        
-        
+
+
+
+
     }
 }
