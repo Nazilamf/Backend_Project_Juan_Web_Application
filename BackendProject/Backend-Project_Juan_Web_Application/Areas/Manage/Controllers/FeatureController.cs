@@ -2,10 +2,12 @@
 using Backend_Project_Juan_Web_Application.DAL;
 using Backend_Project_Juan_Web_Application.Entities;
 using Backend_Project_Juan_Web_Application.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 {
+    [Authorize]
     [Area("manage")]
     public class FeatureController : Controller
     {
@@ -20,6 +22,7 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
         public IActionResult Index(int page = 1)
         {
             var query = _context.Features.AsQueryable();
+
             return View(PaginatedList<Feature>.Create(query, page, 2));
         }
 

@@ -1,9 +1,10 @@
 ﻿using Backend_Project_Juan_Web_Application.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend_Project_Juan_Web_Application.DAL
 {
-    public class JuanDbContext:DbContext
+    public class JuanDbContext:IdentityDbContext
     {
         public JuanDbContext(DbContextOptions<JuanDbContext>options ):base(options) 
         {
@@ -23,8 +24,9 @@ namespace Backend_Project_Juan_Web_Application.DAL
         public DbSet <Setting> Settings { get; set; }  
         public DbSet <ProductImage> ProductImages { get; set; }
 
-        public DbSet <PostBanner> postBanners { get; set; }
+        public DbSet <PostBanner> PostBanners { get; set; }
 
+        public DbSet <AppUser> AppUsers { get; set; }   
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductSize>().HasKey(x => new { x.ProductId, x.SizeId });

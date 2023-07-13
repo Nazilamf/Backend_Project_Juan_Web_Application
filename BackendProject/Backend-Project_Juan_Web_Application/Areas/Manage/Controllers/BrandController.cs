@@ -2,12 +2,14 @@
 using Backend_Project_Juan_Web_Application.DAL;
 using Backend_Project_Juan_Web_Application.Entities;
 using Humanizer.Localisation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 
 namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 {
+    [Authorize]
     [Area("manage")]
     public class BrandController : Controller
     {

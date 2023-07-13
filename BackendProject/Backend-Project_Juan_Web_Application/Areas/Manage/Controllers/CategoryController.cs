@@ -1,11 +1,13 @@
 ﻿using Backend_Project_Juan_Web_Application.Areas.Manage.ViewModels;
 using Backend_Project_Juan_Web_Application.DAL;
 using Backend_Project_Juan_Web_Application.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 {
+    [Authorize]
     [Area("manage")]
     public class CategoryController : Controller
     {
@@ -25,8 +27,11 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
             var query = _context.Categories.Include(x => x.Products).AsQueryable();
 
             if (search!=null) query = query.Where(x => x.Name.Contains(search));
+            var vm = PaginatedList<Category>.Create(query, page, 2);
+            if (page>vm.TotalPages) return RedirectToAction("index", new { page = vm.TotalPages, search = search });
 
-            return View(PaginatedList<Category>.Create(query, page, 2));
+            return View(vm);
+
         }
 
 

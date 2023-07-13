@@ -22,7 +22,9 @@ namespace Backend_Project_Juan_Web_Application.Controllers
             {
                 Sliders = _context.Sliders.OrderBy(x => x.Order).ToList(),
                 Features = _context.Features.Take(4).ToList(),
-                FeaturedProducts = _context.Products.Include(x => x.ProductImages.Where(x => x.PosterStatus==true)).Take(20).ToList()
+                FeaturedProducts = _context.Products.Include(x => x.ProductImages.Where(x => x.PosterStatus==true)).Take(20).ToList(),
+                PostBanners = _context.PostBanners.Take(2).ToList(),
+                TopSeller = _context.Products.Include(x => x.ProductImages.Where(x => x.PosterStatus==true)).Where(x => x.Rate>3).Take(4).ToList(),
             };
             return View(vm);
         }

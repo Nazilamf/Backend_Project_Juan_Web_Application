@@ -1,12 +1,14 @@
 ﻿using Backend_Project_Juan_Web_Application.Areas.Manage.ViewModels;
 using Backend_Project_Juan_Web_Application.DAL;
 using Backend_Project_Juan_Web_Application.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 {
+    [Authorize]
     [Area("manage")]
     public class SizeController : Controller
     {
@@ -22,10 +24,13 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 
             var query = _context.Sizes.Include(x=>x.ProductSizes).ThenInclude(x=>x.Product).AsQueryable();
 
-            if (search!=null) query = query.Where(x => x.SizeName.Contains(search));    
-           
+            if (search!=null) query = query.Where(x => x.SizeName.Contains(search));
 
-            return View(PaginatedList<Size>.Create(query, page, 2));
+            var vm = PaginatedList<Size>.Create(query, page, 2);
+            if (page>vm.TotalPages) return RedirectToAction("index", new { page = vm.TotalPages, search = search });
+
+            return View(vm);
+          
         }
 
 
@@ -86,6 +91,19 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
             return RedirectToAction("index");
         }
 
+        public IActionResult Delete(int id)
+        {
+            Size size = _context.Sizes.Find(id);
+
+            if (size == null) return StatusCode(404);
+
+            if (_context.ProductSizes.Any(x => x.SizeId == id)) return StatusCode(400);
+
+            _context.Sizes.Remove(size);
+            _context.SaveChanges();
+
+            return RedirectToAction("index");
+        }
 
     }
 }

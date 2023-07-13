@@ -1,8 +1,11 @@
 ﻿﻿
+
 @inject LayoutService  _layoutService;
 
 @{
     var settings = _layoutService.GetSettings();
+    var categories = _layoutService.GetCategories();
+    var brands = _layoutService.GetBrands();
 }
 
 
@@ -443,15 +446,25 @@
                     <i class="fa fa-angle-down"></i>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="myaccount">
-                    <a class="dropdown-item" href="my-account.html"
+                    @if(User.Identity.IsAuthenticated)
+                      {
+                      <a class="dropdown-item" asp-action="profile" asp-controller="account"
                       >my account</a
                     >
-                    <a class="dropdown-item" href="login-register.html">
-                      login</a
+                    <a class="dropdown-item" asp-action="profile" asp-controller="account">
+                     @User.Identity.Name</a
                     >
-                    <a class="dropdown-item" href="login-register.html"
-                      >register</a
-                    >
+                    <a class="dropdown-item" asp-action="logout" asp-controller="account"
+                      >Logout</a>
+                     }
+                       else{
+                    <a class="dropdown-item" asp-action="login" asp-controller="account">
+                      login</a>
+                    <a class="dropdown-item" asp-action="register" asp-controller="account"
+                      >register</a>
+                                    }
+
+                    
                   </div>
                 </div>
               </li>
@@ -495,7 +508,7 @@
       <!-- footer main area start -->
       <div class="footer-widget-area section-padding">
         <div class="container">
-          <div class="row mtn-40">
+          <div class="row mtn-40 justify-content-between">
             <!-- footer widget item start -->
             <div class="col-xl-5 col-lg-3 col-md-6">
               <div class="widget-item mt-40">
@@ -522,15 +535,14 @@
             <!-- footer widget item start -->
             <div class="col-xl-2 col-lg-3 col-md-6">
               <div class="widget-item mt-40">
-                <h5 class="widget-title">Categories</h5>
+                <h5 class="widget-title">Brands</h5>
                 <div class="widget-body">
                   <ul class="useful-link">
-                    <li><a href="#">Ecommerce</a></li>
-                    <li><a href="#">Shopify</a></li>
-                    <li><a href="#">Prestashop</a></li>
-                    <li><a href="#">Opencart</a></li>
-                    <li><a href="#">Magento</a></li>
-                    <li><a href="#">Jigoshop</a></li>
+                   @foreach (var item in brands)
+                                    {
+                                         <li><a href="#">@item.Name</a></li>
+                                    }
+                    
                   </ul>
                 </div>
               </div>
@@ -540,38 +552,20 @@
             <!-- footer widget item start -->
             <div class="col-xl-2 col-lg-3 col-md-6">
               <div class="widget-item mt-40">
-                <h5 class="widget-title">Information</h5>
+                <h5 class="widget-title">Categories</h5>
                 <div class="widget-body">
                   <ul class="useful-link">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Returns & Exchanges</a></li>
-                    <li><a href="#">Shipping & Delivery</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                  @foreach (var item in categories)
+                                    {
+                                          <li><a href="#">@item.Name</a></li>
+                                    }
+                    
                   </ul>
                 </div>
               </div>
             </div>
             <!-- footer widget item end -->
 
-            <!-- footer widget item start -->
-            <div class="col-xl-2 col-lg-3 offset-xl-1 col-md-6">
-              <div class="widget-item mt-40">
-                <h5 class="widget-title">Quick Links</h5>
-                <div class="widget-body">
-                  <ul class="useful-link">
-                    <li><a href="#">Store Location</a></li>
-                    <li><a href="#">My Account</a></li>
-                    <li><a href="#">Orders Tracking</a></li>
-                    <li><a href="#">Size Guide</a></li>
-                    <li><a href="#">Shopping Rates</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <!-- footer widget item end -->
           </div>
         </div>
       </div>
@@ -614,4 +608,3 @@
 
   <!-- Mirrored from demo.hasthemes.com/juan-preview-v1/juan/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Mar 2021 22:36:53 GMT -->
 </html>
-

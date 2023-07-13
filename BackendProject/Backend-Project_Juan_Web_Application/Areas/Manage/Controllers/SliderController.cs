@@ -2,10 +2,12 @@
 using Backend_Project_Juan_Web_Application.DAL;
 using Backend_Project_Juan_Web_Application.Entities;
 using Backend_Project_Juan_Web_Application.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 {
+    [Authorize]
     [Area("manage")]
     public class SliderController : Controller
     {

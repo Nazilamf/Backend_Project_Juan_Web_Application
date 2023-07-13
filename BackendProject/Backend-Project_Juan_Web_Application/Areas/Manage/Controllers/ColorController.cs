@@ -1,11 +1,13 @@
 ﻿using Backend_Project_Juan_Web_Application.Areas.Manage.ViewModels;
 using Backend_Project_Juan_Web_Application.DAL;
 using Backend_Project_Juan_Web_Application.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 {
+    [Authorize]
     [Area("manage")]
     public class ColorController : Controller
     {
@@ -23,7 +25,10 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 
             if (search!=null) query = query.Where(x => x.Name.Contains(search));
 
-            return View(PaginatedList<Color>.Create(query, page, 2));
+            var vm = PaginatedList<Color>.Create(query, page, 2);
+            if (page>vm.TotalPages) return RedirectToAction("index", new { page = vm.TotalPages, search = search });
+
+            return View(vm);
         }
 
 

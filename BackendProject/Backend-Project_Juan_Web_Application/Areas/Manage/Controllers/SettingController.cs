@@ -1,6 +1,7 @@
 ﻿using Backend_Project_Juan_Web_Application.Areas.Manage.ViewModels;
 using Backend_Project_Juan_Web_Application.DAL;
 using Backend_Project_Juan_Web_Application.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 {
+    [Authorize]
     [Area("manage")]
     public class SettingController : Controller
     {
@@ -78,6 +80,20 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 
 
             existSetting.Value = setting.Value;
+            _context.SaveChanges();
+
+            return RedirectToAction("index");
+        }
+
+        public IActionResult Delete(string key)
+        {
+            Setting setting = _context.Settings.Find(key);
+
+            if (setting == null) return StatusCode(404);
+
+            if (_context.Settings.Any(x =>x.Key == key)) return StatusCode(400);
+
+            _context.Settings.Remove(setting);
             _context.SaveChanges();
 
             return RedirectToAction("index");

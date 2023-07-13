@@ -1,5 +1,5 @@
 ﻿﻿
-@model PaginatedList<Feature>
+@model PaginatedList<PostBanner>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,18 +9,17 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1>Features</h1> <a class="btn btn-primary" asp-action="create">Create</a>
+            <h1>PosterBanner</h1> <a class="btn btn-primary" asp-action="create">Create</a>
         </div>
         <div class="col-md-8">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Order</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Desc</th>
-                        <th scope="col">İcon</th>
-                        <th scope="col">Color</th>
+                        <th scope="col">Title1</th>
+                        <th scope="col">Title2</th>
+                        <th scope="col">Title3</th>
+                        <th scope="col">BackImage</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -30,16 +29,18 @@
                         dataOrder++;
                         <tr>
                             <th scope="row">@dataOrder</th>
-                            <td>@dataOrder</td>
-                            <td>@item.Title</td>
-                            <td>@item.Desc</td>
+                            <td>@item.Title1</td>
+                            <td>@item.Title2</td>
+                            <td>@item.Title3</td>
                             <td>
-                                <img width="150" src="~/manage/assets/uploads/icon/@item.Icon">
+                                <img width="150" src="~/manage/assets/uploads/banner/@item.BackImage">
                             </td>
-                            <td>@item.Color</td>
+                           
                             <td>
-                                <a asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                                <a asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger delete-btn">Delete</a>
+                               <td>
+                                    <a asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                                    <a asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger delete-btn">Delete</a>
+                                </td>
                             </td>
                         </tr>
                     }
