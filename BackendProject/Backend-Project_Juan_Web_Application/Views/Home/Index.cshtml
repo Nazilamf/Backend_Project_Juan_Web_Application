@@ -105,10 +105,8 @@
                                         <span class="price-old"><del> AZN @item.SalePrice</del></span>
                                     </div>
                                     <div class="product-action-link">
-                                        <a href="#" data-toggle="tooltip" title="Wishlist">
-                                            <i class="ion-android-favorite-outline"></i>
-                                        </a>
-                                        <a href="#" data-toggle="tooltip" title="Add To Cart">
+                                        
+                                        <a asp-controller="product" asp-action="addtobasket" asp-route-id = "@item.Id"data-toggle="tooltip" title="Add To Cart">
                                             <i class="ion-bag"></i>
                                         </a>
                                         <a asp-controller="product" asp-action="getdetail" asp-route-id="@item.Id" class="modal-btn" data-target="#quick_view">
@@ -204,10 +202,8 @@
                         <span><i class="ion-android-star"></i></span>
                       </div>
                       <div class="product-link-2">
-                        <a href="#" data-toggle="tooltip" title="Wishlist"
-                          ><i class="ion-android-favorite-outline"></i
-                        ></a>
-                        <a href="#" data-toggle="tooltip" title="Add To Cart"
+                       
+                        <a asp-action="addtobasket"  asp-controller="product"  asp-route-id= "@item.Id" data-toggle="tooltip" title="Add To Cart"
                           ><i class="ion-bag"></i
                         ></a>
                         <a
