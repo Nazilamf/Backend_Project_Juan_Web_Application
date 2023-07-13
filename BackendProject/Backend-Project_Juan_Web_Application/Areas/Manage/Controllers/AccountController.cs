@@ -10,25 +10,38 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<AppUser>userManager,SignInManager<AppUser>signInManager)
+        public AccountController(UserManager<AppUser>userManager,SignInManager<AppUser>signInManager,RoleManager<IdentityRole> roleManager)
         {
             _userManager= userManager;
             _signInManager=signInManager;
+            _roleManager=roleManager;
         }
 
-        
+        //public async Task<IActionResult> CreateRoles()
+        //{
+        //    await _roleManager.CreateAsync(new IdentityRole("SuperAdmin"));
+
+        //    await _roleManager.CreateAsync(new IdentityRole("Admin"));
+
+        //    await _roleManager.CreateAsync(new IdentityRole("Member"));
+
+        //    return Content("Created");
+        //}
+
 
         //public async Task<IActionResult> CreateAdmin()
         //{
         //    AppUser admin = new AppUser
         //    {
-        //        FullName= "Admin",
-        //        UserName = "admin",
+        //        FullName= "SuperAdmin",
+        //        UserName = "SuperAdmin",
 
         //    };
-        //     var result = await _userManager.CreateAsync(admin,"Admin123");
-           
+        //    var result = await _userManager.CreateAsync(admin, "Admin123");
+        //    await _userManager.AddToRoleAsync(admin, "SuperAdmin");
+
         //    return Content("Created");
         //}
 

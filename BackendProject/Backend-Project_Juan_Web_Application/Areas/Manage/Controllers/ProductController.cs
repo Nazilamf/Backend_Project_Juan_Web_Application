@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("manage")]
     public class ProductController : Controller
     {

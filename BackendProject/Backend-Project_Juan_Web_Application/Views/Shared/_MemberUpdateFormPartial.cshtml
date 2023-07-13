@@ -1,0 +1,59 @@
+﻿@model MemberUpdateViewModel
+
+<div class="myaccount-content">
+    <h3>Account Details</h3>
+    <div class="account-details-form">
+        <form asp-action="memberupdate" method="post">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="single-input-item">
+                        <input asp-for="FullName"  placeholder="FullName" />
+                        <span class="text-danger" asp-validation-for="FullName"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="single-input-item">
+                        <input asp-for="UserName"  placeholder="UserName" />
+                        <span class="text-danger" asp-validation-for="UserName"></span>
+                    </div>
+                </div>
+            </div>
+             <div class="col-lg-6">
+                    <div class="single-input-item">
+                        <input asp-for="Email"  placeholder="Email" />
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                </div>
+           
+             <div class="col-lg-6">
+                    <div class="single-input-item">
+                        <input asp-for="Phone"  placeholder="Phone" />
+                        <span class="text-danger" asp-validation-for="Phone"></span>
+                    </div>
+                </div>
+                 <div class="col-lg-6">
+                    <div class="single-input-item">
+                        <input asp-for="CurrentPassword"  placeholder="CurrentPassword" />
+                        <span class="text-danger" asp-validation-for="CurrentPassword"></span>
+                    </div>
+                </div>
+                 <div class="col-lg-6">
+                    <div class="single-input-item">
+                        <input asp-for="NewPassword"  placeholder="NewPassword" />
+                        <span class="text-danger" asp-validation-for="NewPassword"></span>
+                    </div>
+                </div>
+            <div class="col-lg-6">
+                <div class="single-input-item">
+                    <input asp-for="ConfirmNewPassword" placeholder="ConfirmNewPassword" />
+                    <span class="text-danger" asp-validation-for="ConfirmNewPassword"></span>
+                </div>
+            </div>
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+            <div class="single-input-item">
+                <button  type="sumbit" class="check-btn sqr-btn ">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+                                        </div>

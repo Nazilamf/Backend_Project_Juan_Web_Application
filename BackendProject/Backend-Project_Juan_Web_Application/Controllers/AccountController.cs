@@ -1,7 +1,10 @@
 ﻿using Backend_Project_Juan_Web_Application.Entities;
 using Backend_Project_Juan_Web_Application.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
+using System.Security.Claims;
 
 namespace Backend_Project_Juan_Web_Application.Controllers
 {
@@ -43,6 +46,8 @@ namespace Backend_Project_Juan_Web_Application.Controllers
                     return View();
                 }
             }
+
+            await _userManager.AddToRoleAsync(user, "Member");
             return RedirectToAction("Login");
         }
         public IActionResult Login()
@@ -74,13 +79,73 @@ namespace Backend_Project_Juan_Web_Application.Controllers
             return RedirectToAction("index","home");
         }
 
-        public IActionResult Profile()
+        [Authorize(Roles="Member")]
+        public async  Task<IActionResult> Profile()
         {
             if (User.Identity.IsAuthenticated)
             {
-                return Content(User.Identity.Name);
+                AppUser member = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                ProfileViewModel vm = new ProfileViewModel()
+                {
+                  
+                    Member = new MemberUpdateViewModel
+                    {
+                        FullName= member.FullName,
+                        UserName=member.UserName,
+                        Email=member.Email,
+                        Phone=member.PhoneNumber
+
+                    }
+                };
+                return View(vm);
+                    
+
             }
+
+
             else return Content("User Logged out");
+        }
+
+        public async Task<IActionResult> MemberUpdate(MemberUpdateViewModel memberVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                ProfileViewModel vm = new ProfileViewModel() { Member= memberVM };
+                return View("profile", vm);
+
+            }
+                AppUser member = await _userManager.FindByNameAsync(User.Identity.Name);
+                member.FullName= memberVM.FullName;
+                member.UserName= memberVM.UserName;
+                member.Email= memberVM.Email;
+                member.PhoneNumber= memberVM.Phone;
+
+             var result=await _userManager.UpdateAsync(member);
+
+            if (!result.Succeeded)
+            {
+                foreach (var item in result.Errors)   
+                    ModelState.AddModelError("", item.Description);
+                    ProfileViewModel vm = new ProfileViewModel() { Member= memberVM };
+                    return View("profile", vm);
+                
+            }
+
+            //changepassword
+                await _signInManager.SignInAsync(member, false);
+
+            return RedirectToAction("profile");
+
+         
+        }
+
+
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("index", "home");
         }
     }
 }

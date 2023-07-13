@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("manage")]
     public class PosterBannerController : Controller
     {
