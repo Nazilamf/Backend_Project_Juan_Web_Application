@@ -98,6 +98,19 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 
             return RedirectToAction("index");
         }
+
+
+        public IActionResult Delete(int id)
+        {
+            Feature feature = _context.Features.Find(id);
+
+            if (feature == null) return StatusCode(404);
+
+            _context.Features.Remove(feature);
+            _context.SaveChanges();
+
+            return RedirectToAction("index");
+        }
     }
 }
 

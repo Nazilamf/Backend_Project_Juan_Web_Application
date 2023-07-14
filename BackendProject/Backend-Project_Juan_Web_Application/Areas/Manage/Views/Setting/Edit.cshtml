@@ -1,5 +1,4 @@
-﻿﻿
-@model Setting
+﻿@model Setting
 @{
     ViewData["Title"] = "Edit";
 }
@@ -10,15 +9,15 @@
             <h1>Setting Edit</h1>
         </div>
         <div class="col-md-8">
-            <form method="post" asp-action="create">
+            <form method="post" asp-action="edit" asp-controller="Setting">
                 <div class="form-group">
-                    <label asp-for="Key">Key</label>
-                    <input asp-for="Key" class="form-control">
-                    <span class="text-danger" asp-validation-for="Key"></span>
+                    <label for="Key">Key</label>
+                    <input id="Key" for="Key" disabled class="form-control" value="@Model.Key">
+                    <input type=hidden name="Key"  class="form-control" value="@Model.Key">
                 </div>
                 <div class="form-group">
-                    <label asp-for="Value">Value</label>
-                    <input asp-for="Value" class="form-control">
+                    <label for="Value">Value</label>
+                    <input id="Value" asp-for="Value" class="form-control">
                     <span class="text-danger" asp-validation-for="Value"></span>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>

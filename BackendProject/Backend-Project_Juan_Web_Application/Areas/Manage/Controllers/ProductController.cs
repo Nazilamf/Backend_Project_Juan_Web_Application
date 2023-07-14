@@ -23,7 +23,7 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
         }
         public IActionResult Index(int page = 1)
         {
-            var query = _context.Products.Include(x => x.Brand).Include(x => x.Category).Include(x => x.ProductSizes).Include(x => x.Color).Where(x => !x.IsDeleted);
+            var query = _context.Products.Include(x => x.Brand).Include(x => x.Category).Include(x => x.ProductSizes).Include(x=>x.ProductImages).Include(x => x.Color).Where(x => !x.IsDeleted);
 
             return View(PaginatedList<Product>.Create(query, page, 4));
         }

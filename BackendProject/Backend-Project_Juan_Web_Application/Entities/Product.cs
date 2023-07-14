@@ -49,6 +49,7 @@ namespace Backend_Project_Juan_Web_Application.Entities
         public List<int> ProductImageIds { get; set; } = new List<int>();
         public List<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
 
+        public ICollection<BasketItem> BasketItems { get; set; }
 
 
 

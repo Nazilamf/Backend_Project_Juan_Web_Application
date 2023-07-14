@@ -27,6 +27,8 @@ namespace Backend_Project_Juan_Web_Application.DAL
         public DbSet <PostBanner> PostBanners { get; set; }
 
         public DbSet <AppUser> AppUsers { get; set; }   
+
+        public DbSet <BasketItem> BasketItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductSize>().HasKey(x => new { x.ProductId, x.SizeId });

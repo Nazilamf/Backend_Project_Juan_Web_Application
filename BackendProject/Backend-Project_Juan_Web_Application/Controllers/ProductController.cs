@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using NuGet.Packaging.Signing;
+using System.Security.Claims;
 
 namespace Backend_Project_Juan_Web_Application.Controllers
 {
@@ -25,37 +26,66 @@ namespace Backend_Project_Juan_Web_Application.Controllers
 
         public IActionResult AddToBasket(int id)
         {
-            var basketstr = Request.Cookies["basket"];
-            List<BasketCookieItemViewModel> items = null;
-            if (basketstr== null)
+            BasketViewModel basketVM = new BasketViewModel();
+            if (User.Identity.IsAuthenticated)
             {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+               var basketItems = _context.BasketItems.Where(x => x.AppUserId = userId).ToList();
 
-                 items = new List<BasketCookieItemViewModel>();
+                var basketItem = basketItems.Fi
+
             }
             else
             {
-                items= JsonConvert.DeserializeObject<List<BasketCookieItemViewModel>>(basketstr);
-               
-            }
-
-            BasketCookieItemViewModel item = items.FirstOrDefault(x=>x.ProductId== id); 
-            if(item==null)
-            {
-                item = new BasketCookieItemViewModel()
+                var basketstr = Request.Cookies["basket"];
+                List<BasketCookieItemViewModel> cookieitems = null;
+                if (basketstr== null)
                 {
-                    ProductId= id,
-                    Count=1
-                };
-                items.Add(item);
+
+                    cookieitems = new List<BasketCookieItemViewModel>();
+                }
+                else
+                {
+                    cookieitems= JsonConvert.DeserializeObject<List<BasketCookieItemViewModel>>(basketstr);
+
+                }
+
+                BasketCookieItemViewModel cookieitem = cookieitems.FirstOrDefault(x => x.ProductId== id);
+                if (cookieitem==null)
+                {
+                    cookieitem = new BasketCookieItemViewModel()
+                    {
+                        ProductId= id,
+                        Count=1
+                    };
+                    cookieitems.Add(cookieitem);
+                }
+                else
+                {
+                    cookieitem.Count++;
+                }
+
+
+                HttpContext.Response.Cookies.Append("basket", JsonConvert.SerializeObject(cookieitems));
+
+                
+                foreach (var ci in cookieitems)
+                {
+                    BasketItemViewModel basketItem = new BasketItemViewModel()
+                    {
+
+                        Count = ci.Count,
+                        Product = _context.Products.Include(x => x.ProductImages.Where(x => x.PosterStatus==true)).FirstOrDefault(x => x.Id == ci.ProductId)
+                    };
+
+                    basketVM.Items.Add(basketItem);
+                }
+
+
+                
             }
-            else
-            {
-                item.Count++;
-            }
-         
-            items.Add(item);
-            HttpContext.Response.Cookies.Append("basket", JsonConvert.SerializeObject(items));
-            return RedirectToAction("Index","home");   
+
+            return PartialView("_BasketPartialView", basketVM);
         }
 
         public IActionResult ShowBasket()

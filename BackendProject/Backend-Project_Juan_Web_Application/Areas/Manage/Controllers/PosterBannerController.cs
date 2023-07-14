@@ -104,9 +104,6 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 
             if (postBanner == null) return StatusCode(404);
 
-            if (_context.PostBanners.Any(x=>x.Id == id))
-                return StatusCode(400);
-
             _context.PostBanners.Remove(postBanner);
             _context.SaveChanges();
 

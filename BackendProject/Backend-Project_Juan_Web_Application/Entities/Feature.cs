@@ -12,7 +12,7 @@ namespace Backend_Project_Juan_Web_Application.Entities
         public string Title { get; set; }
         [MaxLength(50)]
         public string Desc { get; set; }
-        [Required]
+        
         [MaxLength(50)]
         public string Icon { get; set; }
         [MaxLength(50)]

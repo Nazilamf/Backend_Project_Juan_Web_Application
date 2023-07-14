@@ -4,7 +4,9 @@ namespace Backend_Project_Juan_Web_Application.Entities
 {
     public class Setting
     {
-        [Key]
+        public int Id { get; set; }
+        [Required]
+        [MaxLength(25)]
         public string Key { get; set; }
         [Required]
         [MaxLength(100)]

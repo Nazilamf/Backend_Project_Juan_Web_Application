@@ -23,6 +23,8 @@ builder.Services.AddScoped<LayoutService>();
 
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 app.UseStaticFiles();
 app.UseAuthentication();

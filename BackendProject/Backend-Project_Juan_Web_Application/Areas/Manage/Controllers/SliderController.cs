@@ -103,5 +103,18 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
 
             return RedirectToAction("index");
         }
+
+        public IActionResult Delete(int id)
+        {
+            Slider slider = _context.Sliders.Find(id);
+
+            if (slider == null) return StatusCode(404);
+
+            _context.Sliders.Remove(slider);
+            _context.SaveChanges();
+
+            return RedirectToAction("index");
+        }
+
     }
 }

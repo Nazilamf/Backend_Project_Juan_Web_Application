@@ -1,8 +1,10 @@
-﻿@model PaginatedList<Setting>
-
+﻿@using Backend_Project_Juan_Web_Application.Services;
+@model PaginatedList<Setting>
+@inject LayoutService layoutService
 @{
     ViewData["Title"] = "Index";
     int dataOrder = (Model.PageIndex - 1) * 2;
+    Dictionary<string, string> Settings = layoutService.GetSettings();
 }
 <div class="container">
     <div class="row justify-content-center">
@@ -47,8 +49,8 @@
                             <td>@item.Key</td>
                             <td>@item.Value</td>
                             <td>
-                                <a asp-action="edit" asp-route-id="@item.Key" class="btn btn-warning">Edit</a>
-                                <a asp-action="delete" asp-route-id="@item.Key" class="btn btn-danger delete-btn">Delete</a>
+                                <a asp-action="edit" asp-controller="Setting" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                                
                             </td>
                         </tr>
 
