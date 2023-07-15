@@ -4,6 +4,7 @@ using Backend_Project_Juan_Web_Application.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend_Project_Juan_Web_Application.Migrations
 {
     [DbContext(typeof(JuanDbContext))]
-    partial class JuanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230715141553_UpdateOrderItem")]
+    partial class UpdateOrderItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,7 +160,8 @@ namespace Backend_Project_Juan_Web_Application.Migrations
                         .HasColumnType("nvarchar(35)");
 
                     b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(15)
@@ -166,10 +169,6 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.Property<byte>("Status")
                         .HasColumnType("tinyint");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasMaxLength(300)
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

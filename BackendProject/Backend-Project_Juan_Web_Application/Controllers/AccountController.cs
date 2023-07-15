@@ -1,8 +1,10 @@
-﻿using Backend_Project_Juan_Web_Application.Entities;
+﻿using Backend_Project_Juan_Web_Application.DAL;
+using Backend_Project_Juan_Web_Application.Entities;
 using Backend_Project_Juan_Web_Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 
@@ -12,11 +14,13 @@ namespace Backend_Project_Juan_Web_Application.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly JuanDbContext _context;
 
-        public AccountController(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,JuanDbContext context)
         {
             _userManager=userManager;
             _signInManager=signInManager;
+           _context=context;
         }
         public IActionResult Register()
         {
@@ -56,7 +60,7 @@ namespace Backend_Project_Juan_Web_Application.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult>Login(MemberLoginViewModel memberVm)
+        public async Task<IActionResult>Login(MemberLoginViewModel memberVm,string returnUrl=null)
         {
             if (!ModelState.IsValid) { return View(); }
 
@@ -76,19 +80,20 @@ namespace Backend_Project_Juan_Web_Application.Controllers
                 return View();
             }
 
-            return RedirectToAction("index","home");
+            return returnUrl== null? RedirectToAction("index","home"): RedirectToAction(returnUrl);
         }
 
         [Authorize(Roles="Member")]
-        public async  Task<IActionResult> Profile()
+        public async  Task<IActionResult> Profile(string tab="profile")
         {
+            ViewBag.Tab = tab;
             if (User.Identity.IsAuthenticated)
             {
                 AppUser member = await _userManager.FindByNameAsync(User.Identity.Name);
 
                 ProfileViewModel vm = new ProfileViewModel()
                 {
-                  
+
                     Member = new MemberUpdateViewModel
                     {
                         FullName= member.FullName,
@@ -96,10 +101,14 @@ namespace Backend_Project_Juan_Web_Application.Controllers
                         Email=member.Email,
                         Phone=member.PhoneNumber
 
-                    }
-                };
+                    },
+
+
+
+                    Orders= _context.Orders.Include(x => x.OrderItems).Where(x => x.AppUserId == member.Id).ToList()
+            };
                 return View(vm);
-                    
+                   
 
             }
 

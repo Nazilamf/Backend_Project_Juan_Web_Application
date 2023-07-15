@@ -2,37 +2,57 @@
 
 <div class="billing-form-wrap">
     <form  id="orderform" asp-action="create" asp-controller="order" method="post">
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Member"))
+        {
+ <div class="single-input-item">
+            <label for="FullName" >FullName</label>
+            <input id="FullMame"disabled value="@Model.FullName" />
+                <input type="hidden" name="FullName" value="@Model.FullName"></input>
+        </div>
+            <div class="single-input-item">
+                <label for="Email">Email</label>
+                <input id="Email" disabled value="@Model.Email" />
+                <input type="hidden" name="Email" value="@Model.Email"></input>
+            </div>
 
+        
+            <div class="single-input-item">
+                <label for="Phone">Phone</label>
+                <input id="Phone" disabled value="@Model.Phone" />
+                <input type="hidden" name="Phone" value="@Model.Phone"></input>
+            </div>
+        }
+        else{
         <div class="single-input-item">
             <label asp-for="FullName" class="required">FullName</label>
-            <input type="text" asp-for="FullName" placeholder="FullName" required />
+            <input type="text" asp-for="FullName" placeholder="FullName" />
             <span class="text-danger" asp-validation-for="FullName"></span>
         </div>
         <div class="single-input-item">
             <label asp-for="Email" class="required">Email </label>
-            <input type="email" asp-for="Email" placeholder="Email" required />
+            <input type="email" asp-for="Email" placeholder="Email"  />
             <span class="text-danger" asp-validation-for="Email"></span>
         </div>
-
-
-        <div class="single-input-item">
-            <label asp-for="Adress" class="required mt-20">Adress</label>
-            <input type="text" asp-for="Adress" placeholder="Adress" required />
-            <span class="text-danger" asp-validation-for="Adress"></span>
-        </div>
-
-
         <div class="single-input-item">
             <label asp-for="Phone">Phone</label>
             <input type="text" asp-for="Phone" placeholder="Phone" />
             <span class="text-danger" asp-validation-for="Phone"></span>
-        </div>
+
+            </div>
+        
+        }
+       
+            <div class="single-input-item">
+                <label asp-for="Adress" class="required mt-20">Adress</label>
+                <input type="text" asp-for="Adress" placeholder="Adress"  />
+                <span class="text-danger" asp-validation-for="Adress"></span>
+            </div>
 
 
-        <div class="single-input-item">
-            <label asp-for="Note"> Note</label>
-            <textarea name="ordernote" asp-for="Note" cols="30" rows="3" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-            <span class="text-danger" asp-validation-for="Note"></span>
-        </div>
+            <div class="single-input-item">
+                <label asp-for="Note"> Note</label>
+                <textarea name="ordernote" asp-for="Note" cols="30" rows="3" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                <span class="text-danger" asp-validation-for="Note"></span>
+            </div>
     </form>
 </div>

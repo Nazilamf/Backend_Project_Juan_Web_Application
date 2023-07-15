@@ -25,6 +25,21 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Events.OnRedirectToAccessDenied= options.Events.OnRedirectToLogin = context =>
+    {
+        var uri = new Uri(context.RedirectUri);
+
+        if (context.HttpContext.Request.Path.Value.StartsWith("/manage"))
+            context.Response.Redirect("/manage/account/login"+uri.Query);
+        else
+            context.Response.Redirect("/account/login" + uri.Query);
+
+        return Task.CompletedTask;
+    };
+});
+
 var app = builder.Build();
 app.UseStaticFiles();
 app.UseAuthentication();

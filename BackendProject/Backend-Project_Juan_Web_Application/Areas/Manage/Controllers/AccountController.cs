@@ -52,7 +52,7 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(AdminViewModel adminVM) 
+        public async Task<IActionResult> Login(AdminViewModel adminVM,string returnUrl= null) 
         {
 
             AppUser admin =await _userManager.FindByNameAsync(adminVM.UserName);
@@ -68,7 +68,7 @@ namespace Backend_Project_Juan_Web_Application.Areas.Manage.Controllers
                 ModelState.AddModelError("", "Sifre ve ya username yalnisdir!");
                 return View();
             }
-            return RedirectToAction("Index", "Dashboard");
+            return returnUrl== null ? RedirectToAction("Index", "Dashboard") : RedirectToAction(returnUrl);
         }
     }
 }

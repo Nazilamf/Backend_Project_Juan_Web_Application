@@ -17,6 +17,7 @@ namespace Backend_Project_Juan_Web_Application.Entities
         [MaxLength(15)]
         public string Phone { get; set; }
         [MaxLength(300)]
+        public decimal TotalAmount { get; set; }
         public string Note { get; set; }
         public DateTime CreatedDate { get; set; }
 

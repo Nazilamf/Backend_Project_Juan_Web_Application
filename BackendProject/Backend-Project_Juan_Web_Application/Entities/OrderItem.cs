@@ -9,7 +9,9 @@
         public int Count;
 
         public decimal UnitDiscountPrice { get; set; }
-        public decimal CostPrice { get; set; }
+        public decimal UnitCostPrice { get; set; }
+
+        public decimal UnitSalePrice { get; set; }
 
         public Product Product { get; set; }
         public Order Order { get; set; }

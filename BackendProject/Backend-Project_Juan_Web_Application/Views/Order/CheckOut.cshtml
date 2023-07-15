@@ -27,7 +27,7 @@
                                             <td class="pro-title"><a href="#">@item.ProductName</a></td>
                                             <td class="pro-price"><span>@item.Price.ToString("00.0")</span></td>
                                             <td class="pro-quantity">
-                                                <div class="pro-qty"><input type="text" value="@item.Count"></div>
+                                                <div class="col-lg-6 m-auto"><input type="text" value="@item.Count"></div>
                                             </td>
                                             <td class="pro-subtotal"><span>@(item.Price*item.Count)</span></td>
                                         </tr>
@@ -50,7 +50,7 @@
                                            
                                             <tr class="total">
                                             <td> Cart Totals</td>
-                                            <td class="total-amount">@Model.TotalAmount.ToString("00.0")</td>
+                                            <td class="total-amount">@Model.TotalAmount</td>
                                             </tr>
                                         </table>
                                     </div>
