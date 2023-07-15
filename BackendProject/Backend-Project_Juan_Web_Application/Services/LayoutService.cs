@@ -3,6 +3,7 @@ using Backend_Project_Juan_Web_Application.Entities;
 using Backend_Project_Juan_Web_Application.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace Backend_Project_Juan_Web_Application.Services
 {
@@ -39,31 +40,54 @@ namespace Backend_Project_Juan_Web_Application.Services
         {
 
             var basketVM = new BasketViewModel();
-            var basketstr = _httpContextAccessor.HttpContext.Request.Cookies["basket"];
-
-            List<BasketCookieItemViewModel> cookieItems = null;
-            if(basketstr== null)
+            if(_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
-                cookieItems= new List<BasketCookieItemViewModel>();
+                string userId =_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var dbitems = _context.BasketItems.Include(x => x.Product).ThenInclude(x => x.ProductImages.Where(x => x.PosterStatus==true)).Where(x => x.AppUserId ==userId).ToList();
+
+                foreach (var dbitem in dbitems)
+                {
+                    BasketItemViewModel item = new BasketItemViewModel()
+                    {
+                        Count= dbitem.Count,
+                        Product = _context.Products.Include(x => x.ProductImages).FirstOrDefault(x => x.Id == dbitem.ProductId)
+
+
+                    };
+                    basketVM.Items.Add(item);
+                    basketVM.TotalAmount+=(item.Product.DiscountPrice*item.Count);
+                }
             }
             else
             {
-                cookieItems=JsonConvert.DeserializeObject<List<BasketCookieItemViewModel>>(basketstr);
-            }
+                var basketstr = _httpContextAccessor.HttpContext.Request.Cookies["basket"];
 
-            basketVM.Items = new List<BasketItemViewModel>();
-            foreach (var cookieItem in cookieItems)
-            {
-                BasketItemViewModel item = new BasketItemViewModel()
+                List<BasketCookieItemViewModel> cookieItems = null;
+                if (basketstr== null)
                 {
-                    Count= cookieItem.Count,
-                    Product = _context.Products.Include(x => x.ProductImages).FirstOrDefault(x => x.Id == cookieItem.ProductId)
-                    
+                    cookieItems= new List<BasketCookieItemViewModel>();
+                }
+                else
+                {
+                    cookieItems=JsonConvert.DeserializeObject<List<BasketCookieItemViewModel>>(basketstr);
+                }
 
-                };
-                basketVM.Items.Add(item);
-                basketVM.TotalAmount+=(item.Product.DiscountPrice*item.Count);
+                basketVM.Items = new List<BasketItemViewModel>();
+                foreach (var cookieItem in cookieItems)
+                {
+                    BasketItemViewModel item = new BasketItemViewModel()
+                    {
+                        Count= cookieItem.Count,
+                        Product = _context.Products.Include(x => x.ProductImages).FirstOrDefault(x => x.Id == cookieItem.ProductId)
+
+
+                    };
+                    basketVM.Items.Add(item);
+                    basketVM.TotalAmount+=(item.Product.DiscountPrice*item.Count);
+                }
             }
+
+            
             return basketVM;
         }
     }

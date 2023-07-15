@@ -1,6 +1,7 @@
 ﻿
 @model  BasketViewModel
 
+  
 <div data-count="@Model.Items.Count" class="minicart-inner-content">
     <div class="minicart-close">
         <i class="ion-android-close"></i>
@@ -25,10 +26,10 @@
                                 <span class="cart-price">@item.Product.DiscountPrice</span>
                             </p>
                         </div>
-                        <button class="minicart-remove">
+                        <a asp-action="deletebasket" asp-controller="product" asp-route-id="@item.Product.Id" id ="basketremove" class="minicart-remove">
                             <i class="ion-android-close"></i>
-                        </button>
-                    </li>
+                        </a>
+                    </li>   
                 }
                
             </ul>
@@ -44,8 +45,8 @@
         </div>
 
         <div class="minicart-button">
-            <a href="cart.html"><i class="fa fa-shopping-cart"></i> view cart</a>
-            <a href="cart.html"><i class="fa fa-share"></i> checkout</a>
+           
+            <a asp-action="checkout" asp-controller="order"><i class="fa fa-share"></i> checkout</a>
         </div>
     </div>
 </div>

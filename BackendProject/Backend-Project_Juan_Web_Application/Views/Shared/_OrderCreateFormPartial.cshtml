@@ -1,0 +1,38 @@
+﻿@model OrderCreateViewModel
+
+<div class="billing-form-wrap">
+    <form  id="orderform" asp-action="create" asp-controller="order" method="post">
+
+        <div class="single-input-item">
+            <label asp-for="FullName" class="required">FullName</label>
+            <input type="text" asp-for="FullName" placeholder="FullName" required />
+            <span class="text-danger" asp-validation-for="FullName"></span>
+        </div>
+        <div class="single-input-item">
+            <label asp-for="Email" class="required">Email </label>
+            <input type="email" asp-for="Email" placeholder="Email" required />
+            <span class="text-danger" asp-validation-for="Email"></span>
+        </div>
+
+
+        <div class="single-input-item">
+            <label asp-for="Adress" class="required mt-20">Adress</label>
+            <input type="text" asp-for="Adress" placeholder="Adress" required />
+            <span class="text-danger" asp-validation-for="Adress"></span>
+        </div>
+
+
+        <div class="single-input-item">
+            <label asp-for="Phone">Phone</label>
+            <input type="text" asp-for="Phone" placeholder="Phone" />
+            <span class="text-danger" asp-validation-for="Phone"></span>
+        </div>
+
+
+        <div class="single-input-item">
+            <label asp-for="Note"> Note</label>
+            <textarea name="ordernote" asp-for="Note" cols="30" rows="3" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+            <span class="text-danger" asp-validation-for="Note"></span>
+        </div>
+    </form>
+</div>

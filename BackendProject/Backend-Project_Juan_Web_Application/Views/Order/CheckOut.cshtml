@@ -1,0 +1,98 @@
+﻿@model CheckOutViewModel
+    <main>
+        <!-- cart main wrapper start -->
+        <div class="cart-main-wrapper ">
+            <div class="container">
+                <div class="section-bg-color">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Cart Table Area -->
+                            <div class="cart-table table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="pro-thumbnail">Thumbnail</th>
+                                            <th class="pro-title">Product</th>
+                                            <th class="pro-price">Price</th>
+                                            <th class="pro-quantity">Quantity</th>
+                                            <th class="pro-subtotal">Total</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                     @foreach (var item in Model.Items)
+                                    {
+                                        <tr>
+                                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="~/manage/assets/uploads/product/@item.Image" alt="Product" /></a></td>
+                                            <td class="pro-title"><a href="#">@item.ProductName</a></td>
+                                            <td class="pro-price"><span>@item.Price.ToString("00.0")</span></td>
+                                            <td class="pro-quantity">
+                                                <div class="pro-qty"><input type="text" value="@item.Count"></div>
+                                            </td>
+                                            <td class="pro-subtotal"><span>@(item.Price*item.Count)</span></td>
+                                        </tr>
+                                    }
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5 ml-auto">
+                            <!-- Cart Calculation Area -->
+                            <div class="cart-calculator-wrapper">
+                                <div class="cart-calculate-items">
+                                   
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                           
+                                            <tr class="total">
+                                            <td> Cart Totals</td>
+                                            <td class="total-amount">@Model.TotalAmount.ToString("00.0")</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- checkout main wrapper start -->
+    <div class="checkout-page-wrapper ">
+        <div class="container">
+            <div class="row">
+                <!-- Checkout Billing Details -->
+                <div class="col-lg-6">
+                    <div class="checkout-billing-details-wrap">
+                        <h4 class="checkout-title">Billing Details</h4>
+@Html.Partial("_OrderCreateFormPartial", Model.Order)
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- checkout main wrapper end -->
+        </main>
+        <!-- main wrapper end -->
+
+
+
+
+    <div class="col-lg-6 m-auto p-5">
+    <button  type="submit" form="orderform" class="btn d-block">Proceed Checkout</button>
+        <!-- cart main wrapper end -->
+    </div>
+    </main>
+    <!-- main wrapper end -->
+
+
+
+
+    
