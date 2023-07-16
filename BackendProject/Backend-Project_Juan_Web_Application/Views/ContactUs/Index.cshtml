@@ -1,0 +1,59 @@
+﻿@model ContactViewModel
+﻿
+
+@inject LayoutService  _layoutService;
+
+@{
+    var settings = _layoutService.GetSettings();
+
+}
+<main>
+<div class="contact-area section-padding">
+    <div class="container">
+           <div class="row">
+           
+
+      <!-- contact wrapper area start -->
+       
+                    <div class="col-lg-6">
+                        <div class="contact-message">
+                            <h2 class="contact-title">tell us your project</h2>
+                    <form method="post" asp-action="create" id="contactform" asp-controller="contactus">
+                            @Html.Partial("_ContactUsPartial",Model)
+                            </form>
+                        </div>
+                        <div class="col-lg-6 m-auto p-5">
+                    <button type="submit" form="contactform" class="btn d-block">Send</button>
+                    <!-- cart main wrapper end -->
+                </div>
+                    </div>
+
+           
+               
+           
+                    <div class="col-lg-6">
+                        <div class="contact-info pt-0">
+                            <h2 class="contact-title">Contact us</h2>
+                            <p>
+                             @settings["ContactText"]
+                            </p>
+                            <ul>
+                                <li><i class="fa fa-fax"></i> Address : @settings["Adress"]</li>
+                                <li><i class="fa fa-phone"></i> @settings["Email"]</li>
+                                <li><i class="fa fa-envelope-o"></i> @settings["Phone"]</li>
+                            </ul>
+                            <div class="working-time">
+                                <h3>Working Hours</h3>
+                        <span class="pb-0"><span>@settings["WorkingHours"]</span>
+                            </div>
+                        </div>
+                    </div>
+
+                
+            </div>
+        </div>
+        </div>
+        <!-- contact wrapper area end -->
+    </main>
+    <!-- main wrapper end -->
+   

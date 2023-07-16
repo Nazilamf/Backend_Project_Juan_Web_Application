@@ -185,15 +185,7 @@
                                         <div class="top-bar-right">
                                             <div class="product-short">
                                                 <p>Sort By : </p>
-                                                <select class="nice-select" name="sortby">
-                                                    <option value="trending">Relevance</option>
-                                                    <option value="sales">Name (A - Z)</option>
-                                                    <option value="sales">Name (Z - A)</option>
-                                                    <option value="rating">Price (Low &gt; High)</option>
-                                                    <option value="date">Rating (Lowest)</option>
-                                                    <option value="price-asc">Model (A - Z)</option>
-                                                    <option value="price-asc">Model (Z - A)</option>
-                                                </select>
+                                               <select  name="sort" onchange="this.form.submit()" form="filterForm" class="form-control nice-select sort-select mr-0" asp-items="@Model.SortItems"></select>
                                             </div>
                                             <div class="product-amount">
                                                 <p>Showing 1–16 of 21 results</p>

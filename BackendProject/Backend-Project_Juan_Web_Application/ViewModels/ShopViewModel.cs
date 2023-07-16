@@ -1,4 +1,5 @@
 ﻿using Backend_Project_Juan_Web_Application.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Backend_Project_Juan_Web_Application.ViewModels
 {
@@ -23,6 +24,7 @@ namespace Backend_Project_Juan_Web_Application.ViewModels
         public decimal MaxPrice { get; set; }
         public decimal SelectedMinPrice { get; set; }
         public decimal SelectedMaxPrice { get; set; }
+        public List<SelectListItem> SortItems { get; set; }
 
 
 

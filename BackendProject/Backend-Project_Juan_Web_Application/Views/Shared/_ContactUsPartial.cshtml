@@ -1,0 +1,57 @@
+﻿@model ContactViewModel
+
+
+  
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Member"))
+        {
+            <div class="single-input-item col-lg-6 col-md-6 col-sm-6">
+                <label for="FullName">FullName</label>
+                <input id="FullMame" disabled value="@Model.FullName" />
+                <input type="hidden" name="FullName" value="@Model.FullName"></input>
+            </div>
+            <div class="single-input-item col-lg-6 col-md-6 col-sm-6">
+                <label for="Email">Email</label>
+                <input id="Email" disabled value="@Model.Email" />
+                <input type="hidden" name="Email" value="@Model.Email"></input>
+            </div>
+
+
+            <div class="single-input-item  col-lg-6 col-md-6 col-sm-6">
+                <label for="Phone">Phone</label>
+                <input id="Phone" disabled value="@Model.Phone" />
+                <input type="hidden" name="Phone" value="@Model.Phone"></input>
+            </div>
+        }
+        else
+        {
+            <div class="single-input-item  col-lg-6 col-md-6 col-sm-6">
+                <label asp-for="FullName" class="required">FullName</label>
+                <input type="text" asp-for="FullName" placeholder="FullName" />
+                <span class="text-danger" asp-validation-for="FullName"></span>
+            </div>
+            <div class="single-input-item  col-lg-6 col-md-6 col-sm-6">
+                <label asp-for="Email" class="required">Email </label>
+                <input type="email" asp-for="Email" placeholder="Email" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="single-input-item  col-lg-6 col-md-6 col-sm-6">
+                <label asp-for="Phone">Phone</label>
+                <input type="text" asp-for="Phone" placeholder="Phone" />
+                <span class="text-danger" asp-validation-for="Phone"></span>
+
+            </div>
+
+        }
+        <div class="single-input-item col-12" ">
+        <label asp-for="Subject"> Subject</label>
+        <textarea name="Subject" asp-for="Subject" cols="30" rows="3" placeholder="Please write about your subject.."></textarea>
+        <span class="text-danger" asp-validation-for="Subject"></span>
+       </div>
+        <div class="single-input-item col-12" ">
+            <label asp-for="Text"> Note</label>
+            <textarea name="Text" asp-for="Text" cols="30" rows="3" placeholder="Please write about your problem.."></textarea>
+            <span class="text-danger" asp-validation-for="Text"></span>
+        </div>
+ 
+
+ 

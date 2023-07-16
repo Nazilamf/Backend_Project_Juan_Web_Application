@@ -10,5 +10,6 @@ namespace Backend_Project_Juan_Web_Application.ViewModels
 
         public List<PostBanner> PostBanners { get; set; }
         public List<Product> TopSeller { get; set; }
+        public List<BrandLogo> BrandLogos { get; set; }
     }
 }
