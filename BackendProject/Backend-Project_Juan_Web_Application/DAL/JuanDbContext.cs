@@ -33,6 +33,8 @@ namespace Backend_Project_Juan_Web_Application.DAL
         public DbSet <OrderItem > OrderItems { get; set; }
 
         public DbSet <Order> Orders { get; set; }
+
+        public DbSet <ProductReview > ProductReviews { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductSize>().HasKey(x => new { x.ProductId, x.SizeId });

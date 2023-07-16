@@ -92,13 +92,13 @@
                             <!-- product single item start -->
                             <div class="product-item mb-50">
                                 <div class="product-thumb">
-                                    <a href="product-details.html">
+                                    <a asp-controller="product" asp-action="detail" asp-route-id="@item.Id">
                                         <img src="~/manage/assets/uploads/product/@item.ProductImages.FirstOrDefault(x=>x.PosterStatus==true).ImageName" alt="" />
                                     </a>
                                 </div>
                                 <div class="product-content">
                                     <h5 class="product-name">
-                                        <a href="product-details.html">@item.Name</a>
+                                        <a asp-controller="product" asp-action="detail" asp-route-id="@item.Id">@item.Name</a>
                                     </h5>
                                     <div class="price-box">
                                         <span class="price-regular">AZN @item.DiscountPrice</span>

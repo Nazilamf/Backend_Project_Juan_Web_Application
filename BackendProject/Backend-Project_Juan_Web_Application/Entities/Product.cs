@@ -51,6 +51,8 @@ namespace Backend_Project_Juan_Web_Application.Entities
 
         public ICollection<BasketItem> BasketItems { get; set; }
 
+        public ICollection<ProductReview> ProductReviews { get; set; } = new List<ProductReview>();
+
 
 
 

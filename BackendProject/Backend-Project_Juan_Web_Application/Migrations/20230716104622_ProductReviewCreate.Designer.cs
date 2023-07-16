@@ -4,6 +4,7 @@ using Backend_Project_Juan_Web_Application.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend_Project_Juan_Web_Application.Migrations
 {
     [DbContext(typeof(JuanDbContext))]
-    partial class JuanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230716104622_ProductReviewCreate")]
+    partial class ProductReviewCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +47,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("BasketItems", (string)null);
+                    b.ToTable("BasketItems");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.Brand", b =>
@@ -63,7 +65,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands", (string)null);
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.Category", b =>
@@ -80,7 +82,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.Color", b =>
@@ -98,7 +100,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors", (string)null);
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.Feature", b =>
@@ -128,7 +130,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Features", (string)null);
+                    b.ToTable("Features");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.Order", b =>
@@ -175,7 +177,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.OrderItem", b =>
@@ -207,7 +209,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.PostBanner", b =>
@@ -235,7 +237,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PostBanners", (string)null);
+                    b.ToTable("PostBanners");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.Product", b =>
@@ -292,7 +294,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasIndex("ColorId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.ProductImage", b =>
@@ -318,7 +320,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages", (string)null);
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.ProductReview", b =>
@@ -338,9 +340,6 @@ namespace Backend_Project_Juan_Web_Application.Migrations
                     b.Property<byte>("Rate")
                         .HasColumnType("tinyint");
 
-                    b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Text")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -351,7 +350,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductReviews", (string)null);
+                    b.ToTable("ProductReviews");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.ProductSize", b =>
@@ -366,7 +365,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("ProductSizes", (string)null);
+                    b.ToTable("ProductSizes");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.Setting", b =>
@@ -389,7 +388,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Settings", (string)null);
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.Size", b =>
@@ -407,7 +406,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sizes", (string)null);
+                    b.ToTable("Sizes");
                 });
 
             modelBuilder.Entity("Backend_Project_Juan_Web_Application.Entities.Slider", b =>
@@ -451,7 +450,7 @@ namespace Backend_Project_Juan_Web_Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sliders", (string)null);
+                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

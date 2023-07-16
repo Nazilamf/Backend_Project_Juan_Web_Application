@@ -1,6 +1,7 @@
 ﻿using Backend_Project_Juan_Web_Application.DAL;
 using Backend_Project_Juan_Web_Application.Entities;
 using Backend_Project_Juan_Web_Application.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -205,6 +206,67 @@ namespace Backend_Project_Juan_Web_Application.Controllers
             return PartialView("_BasketPartialView", basketVM);
 
         }
+
+
+        public IActionResult Detail(int id)
+        {
+          var vm  =_getProductDetailVm(id);
+            if(vm.Product == null)
+            {
+                return View("error");
+            }
+            
+            return View(vm);
+        }
+
+
+        [Authorize(Roles ="Member")]
+        [HttpPost]
+        public IActionResult Review(ProductReview productreview)
+        {
+
+
+            if (!ModelState.IsValid)
+            {
+                var vm = _getProductDetailVm(productreview.ProductId);
+                vm.productReview = productreview;
+
+                return View("Detail", vm);
+            }
+            Product product = _context.Products.Include(x => x.ProductReviews).FirstOrDefault(x => x.Id == productreview.ProductId);
+            if (product== null) { return View("error"); }
+
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            productreview.AppUserId= userId;
+            productreview.ReviewDate = DateTime.UtcNow.AddHours(4);
+            product.ProductReviews.Add(productreview);  
+            product.Rate =(byte)Math.Ceiling(product.ProductReviews.Average(x => x.Rate)); 
+            _context.SaveChanges();
+            return RedirectToAction("detail", new { id = productreview.ProductId });
+
+
+        }
+
+        private ProductDetailViewModel _getProductDetailVm( int id)
+        {
+            var product = _context.Products.Include(x => x.ProductReviews).ThenInclude(x => x.AppUser).Include(x => x.Category).Include(x => x.Brand).Include(x => x.Color).Include(x => x.ProductSizes).ThenInclude(x => x.Size).Include(x => x.ProductImages).FirstOrDefault(x => x.Id == id);
+
+            var vm = new ProductDetailViewModel
+            {
+                Product = product,
+                RelatedProduct =product!=null? _context.Products.Include(x => x.ProductImages.Where(x => x.PosterStatus==true)).Include(x => x.Brand).Where(x => x.BrandId == product.BrandId).Take(6).ToList(): null ,
+                productReview = new ProductReview
+                {
+                    ProductId = id,
+                }
+            };
+
+            return vm;
+        }
+
+
+
 
     }
    

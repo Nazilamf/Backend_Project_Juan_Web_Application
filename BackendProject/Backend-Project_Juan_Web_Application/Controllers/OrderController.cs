@@ -42,6 +42,7 @@ namespace Backend_Project_Juan_Web_Application.Controllers
                 Vm.Order.FullName = user.FullName;
                 Vm.Order.Email = user.Email;
                 Vm.Order.Phone =user.PhoneNumber;
+              
 
                
             }
